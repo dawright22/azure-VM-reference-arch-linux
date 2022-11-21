@@ -49,9 +49,14 @@ Terraform init
  Terraform apply
  ```
 
-That it! 
+That's all Fokes! <to quote bugs bunny>
 
 If you want to customise location or other componets then you can start pplaying with the Variables file to suit you.
+
+To access the VM scale sets select the instance you wish to connect to and use the Bastion option. Enter azureuser and use the generated password from Terraform by running
+```
+terraform output password
+```
 
 -----------------
 ## Requirements
