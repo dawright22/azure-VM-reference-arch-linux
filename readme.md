@@ -35,7 +35,7 @@ N-tier architectures are typically implemented as infrastructure-as-service (Iaa
 ## How to deploy
 
 1. Open a cloud Shell from the Azure portal
-2. clone this repo by running this command:
+2. Clone this repo by running this command:
 ```
 git clone https://github.com/dawright22/azure-VM-reference-arch-linux.git
 ```
@@ -49,7 +49,9 @@ Terraform init
  Terraform apply
  ```
 
-That it! If you want to customise location or other componets then you can start pplaying with the Variables file to suit you.
+That it! 
+
+If you want to customise location or other componets then you can start pplaying with the Variables file to suit you.
 
 -----------------
 ## Requirements
