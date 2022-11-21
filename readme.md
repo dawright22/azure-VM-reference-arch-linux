@@ -124,6 +124,3 @@ in your cloud shell session.
 | <a name="output_subnet3_id"></a> [subnet3\_id](#output\_subnet3\_id) | n/a |
 | <a name="output_subnet4_id"></a> [subnet4\_id](#output\_subnet4\_id) | n/a |
 | <a name="output_subnet5_id"></a> [subnet5\_id](#output\_subnet5\_id) | n/a |
-
-# Visualization
-![topology_ref.svg](topology_ref.svg)
