@@ -32,6 +32,8 @@ N-tier architectures are typically implemented as infrastructure-as-service (Iaa
 
 <img width="800" alt="Architecture-diag2" src=https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/images/n-tier-physical-bastion.png>
 
+## How to deploy
+
 -----------------
 ## Requirements
 
