@@ -4,7 +4,7 @@
 
 #N-Tier Architecture
 
-<img width="300" alt="Architecture-diag" https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/images/n-tier-logical.svg>
+<img width="300" alt="Architecture-diag" src=https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/images/n-tier-logical.svg>
 
 
 -----------------
