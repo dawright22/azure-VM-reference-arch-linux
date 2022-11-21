@@ -2,7 +2,7 @@
 
 ----------------
 
-#N-Tier Architecture
+# N-Tier Architecture
 
 <img width="600" alt="Architecture-diag" src=https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/images/n-tier-logical.svg>
 
