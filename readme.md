@@ -35,7 +35,10 @@ N-tier architectures are typically implemented as infrastructure-as-service (Iaa
 ## How to deploy
 
 1. Open a cloud Shell from the Azure portal
-2. clone this repo by running this command: git clone https://github.com/dawright22/azure-VM-reference-arch-linux.git
+2. clone this repo by running this command:
+```
+git clone https://github.com/dawright22/azure-VM-reference-arch-linux.git
+```
 3. Change into the directory this created
 4. Now copy and Run this command:
 ```HCL
