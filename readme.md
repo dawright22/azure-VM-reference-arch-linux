@@ -23,12 +23,14 @@ N-tier architectures are typically implemented as infrastructure-as-service (Iaa
 
 ## Consider an N-tier architecture for:
 
-Simple web applications.
-Migrating an on-premises application to Azure with minimal refactoring.
-Unified development of on-premises and cloud applications.
-N-tier architectures are very common in traditional on-premises applications, so it's a natural fit for migrating existing workloads to Azure.
+- Simple web applications.
+- Migrating an on-premises application to Azure with minimal refactoring.
+- Unified development of on-premises and cloud applications.
+- N-tier architectures are very common in traditional on-premises applications, so it's a natural fit for migrating existing workloads to Azure.
 
+## What we build
 
+<img width="600" alt="Architecture-diag2" src=https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/images/n-tier-physical-bastion.png>
 
 -----------------
 ## Requirements
