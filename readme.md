@@ -53,11 +53,12 @@ That's all Fokes! [to quote bugs bunny]
 
 If you want to customise location or other componets then you can start playing with the Variables file to suit you.
 
-To access the VM scale sets select the instance you wish to connect to and use the Bastion option as per these instructions https://learn.microsoft.com/en-us/azure/bastion/bastion-connect-vm-scale-set. Enter azureuser and use the generated password from Terraform by running
+To access the VM scale sets select the instance you wish to connect to and use the Bastion option as per these instructions https://learn.microsoft.com/en-us/azure/bastion/bastion-connect-vm-scale-set. 
+Enter azureuser as the user and use the generated password from Terraform by running
 ```
 terraform output password
 ```
-
+in your cloud shell session.
 -----------------
 ## Requirements
 
