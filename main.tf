@@ -6,10 +6,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "=3.26.0"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "~>3.0"
-    }
+    # random = {
+    #   source  = "hashicorp/random"
+    #   version = "~>3.0"
+    # }
   }
 }
 
@@ -24,6 +24,12 @@ resource "random_pet" "name" {
 }
 
 resource "random_password" "password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource "random_password" "dbpassword" {
   length           = 16
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
@@ -100,6 +106,9 @@ module "web_scale_sets" {
   app_gty_backend_pool_ids = module.app-gateway.app_gateway.backend_address_pool[*].id
   admin_user               = var.admin_user
   admin_password           = random_password.password.bcrypt_hash
+  # app provisioning
+  web_image = "erjosito/yadaweb:1.0"
+  api_private_ip = module.load_balancer.mid_tier_lb.private_ip_address
 }
 
 ######################################
@@ -115,17 +124,33 @@ module "biz_scale_sets" {
   lb_backend_pool_ids     = module.load_balancer.lb_pool_ids
   admin_user              = var.admin_user
   admin_password          = random_password.password.bcrypt_hash
+  # app provisioning
+  api_image = "erjosito/yadaapi:1.0"
+  SQL_SERVER_FQDN = module.db_SQLSERVER.sqlserver-fqdn
+  SQL_SERVER_USERNAME = var.admin_user 
+  SQL_SERVER_PASSWORD = random_password.password.bcrypt_hash
+
+
 }
 
 ######################################
 # Create Database.
 ######################################
-module "db_MySQL" {
-  source                  = "./modules/My_Database"
-  name                    = random_pet.name.id
-  resource_group_location = var.resource_group_location
+# module "db_MySQL" {
+#   source                  = "./modules/COSMOSDB"
+#   name                    = random_pet.name.id
+#   resource_group_location = var.resource_group_location
+#   resource_group_name     = azurerm_resource_group.rg.name
+#   throughput              = 400
+#   data_tier_sub_id        = module.networks.subnet5
+#   ip_range_filter         = "0.0.0.0"
+# }
+module "db_SQLSERVER" {
+  source                  = "./modules/SQLSERVER"
+  location                = var.resource_group_location
   resource_group_name     = azurerm_resource_group.rg.name
-  throughput              = 400
-  data_tier_sub_id        = module.networks.subnet5
-  ip_range_filter         = "0.0.0.0"
+  servername                    = random_pet.name.id
+  dbname = "mydb"
+  adminlogin ="dbadmin"
+  adminpwd = random_password.dbpassword.bcrypt_hash
 }

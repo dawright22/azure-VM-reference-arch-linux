@@ -51,6 +51,6 @@ output "lb_backend_pool_ids" {
   value = module.load_balancer.lb_pool_ids
 }
 
-output "cosmos-db-endpoint" {
-  value = module.db_MySQL.cosmos-db-endpoint
-}
+# output "cosmos-db-endpoint" {
+#   value = module.db_MySQL.cosmos-db-endpoint
+# }

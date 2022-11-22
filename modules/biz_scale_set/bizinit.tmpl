@@ -1,0 +1,7 @@
+#!/bin/bash
+docker run --restart always -d -p 8080:8080 \
+    -e "SQL_SERVER_FQDN=${sql_server_fqdn}" \
+    -e "SQL_SERVER_USERNAME=${sql_username}" \
+    -e "SQL_SERVER_PASSWORD=${sql_password}" \
+    --name api ${api_image}
+    

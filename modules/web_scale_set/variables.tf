@@ -47,3 +47,10 @@ variable "admin_password" {
   description = "Default password for admin account"
 }
 
+variable "web_image" {
+
+}
+
+variable "api_private_ip" {
+
+}

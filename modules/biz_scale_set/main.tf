@@ -6,17 +6,33 @@ resource "azurerm_linux_virtual_machine_scale_set" "biz_scale_set" {
   name                            = "${var.name}-biz-vmss"
   resource_group_name             = var.resource_group_name
   location                        = var.resource_group_location
-  sku                             = "Standard_F2"
+  sku                             = "Standard_B2s"
   instances                       = 3
   admin_username                  = var.admin_user
   admin_password                  = var.admin_password
   disable_password_authentication = false
+  custom_data = base64encode(templatefile("modules/biz_scale_set/bizinit.tmpl", {
+    sql_server_fqdn = "${var.SQL_SERVER_FQDN}",
+    sql_username    = "${var.SQL_SERVER_USERNAME}",
+    sql_password    = "${var.SQL_SERVER_PASSWORD}",
+  api_image = "${var.api_image}" }))
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
+    # publisher = "Canonical"
+    # offer     = "UbuntuServer"
+    # sku       = "16.04-LTS"
+    # version   = "latest"
+
+    publisher = "kinvolk"
+    offer     = "flatcar-container-linux-free"
+    sku       = "stable-gen2"
     version   = "latest"
+  }
+
+  plan {
+    name      = "stable-gen2"
+    product   = "flatcar-container-linux-free"
+    publisher = "kinvolk"
   }
 
   network_interface {
@@ -41,7 +57,20 @@ resource "azurerm_linux_virtual_machine_scale_set" "biz_scale_set" {
   lifecycle {
     ignore_changes = [instances]
   }
+
+depends_on = [
+   azurerm_marketplace_agreement.flatcar
+]
+
 }
+
+# Accept terms
+resource "azurerm_marketplace_agreement" "flatcar" {
+  publisher = "kinvolk"
+  offer     = "flatcar-container-linux-free"
+  plan      = "stable-gen2"
+}
+
 
 resource "azurerm_monitor_autoscale_setting" "biz_scale_set_mon" {
   name                = "${var.name}-biz-autoscale-config"

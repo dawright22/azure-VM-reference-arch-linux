@@ -6,18 +6,29 @@ resource "azurerm_linux_virtual_machine_scale_set" "web_scale_set" {
   name                            = "${var.name}-web-vmss"
   resource_group_name             = var.resource_group_name
   location                        = var.resource_group_location
-  sku                             = "Standard_F2"
+  sku                             = "Standard_B2s"
   instances                       = 3
   admin_username                  = var.admin_user
   admin_password                  = var.admin_password
   disable_password_authentication = false
-  /* custom_data                     = file("web.conf") */
+  custom_data = base64encode(templatefile("modules/web_scale_set/webinit.tmpl", {
+    api_private_ip = "${var.api_private_ip}",
+    web_image      = "${var.web_image}"
+    }
+    )
+  )
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
+    publisher = "kinvolk"
+    offer     = "flatcar-container-linux-free"
+    sku       = "stable-gen2"
     version   = "latest"
+  }
+
+  plan {
+    name      = "stable-gen2"
+    product   = "flatcar-container-linux-free"
+    publisher = "kinvolk"
   }
 
   network_interface {

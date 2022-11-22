@@ -47,3 +47,16 @@ variable "admin_password" {
   description = "Default password for admin account"
 }
 
+variable "api_image" {
+}
+
+variable "SQL_SERVER_FQDN" {
+
+}
+
+variable "SQL_SERVER_USERNAME" {
+}
+
+variable "SQL_SERVER_PASSWORD" {
+
+}

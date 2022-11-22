@@ -5,7 +5,7 @@ resource "azurerm_cosmosdb_account" "Storacc" {
   offer_type                        = "Standard"
   kind                              = "GlobalDocumentDB"
   enable_automatic_failover         = false
-  enable_free_tier                  = true
+  enable_free_tier                  = false
   is_virtual_network_filter_enabled = "true"
   ip_range_filter                   = var.ip_range_filter
   virtual_network_rule {

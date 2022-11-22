@@ -1,0 +1,4 @@
+#!/bin/bash
+docker run --restart always -d -p 80:80 \
+  -e "API_URL=http://${api_private_ip}:8080" \
+  --name web ${web_image}
