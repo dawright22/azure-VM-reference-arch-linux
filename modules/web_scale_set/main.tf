@@ -16,8 +16,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "web_scale_set" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "20_04-lts-gen2"
-    version   = "20.04.202209200"
+    sku       = "18_04-lts-gen2"
+    version   = "latest"
   }
 
   network_interface {
