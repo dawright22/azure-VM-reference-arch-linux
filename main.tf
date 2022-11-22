@@ -26,13 +26,13 @@ resource "random_pet" "name" {
 resource "random_password" "password" {
   length           = 16
   special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
 resource "random_password" "dbpassword" {
   length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+  special          = false
+  # override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
 ######################################
@@ -107,7 +107,7 @@ module "web_scale_sets" {
   admin_user               = var.admin_user
   admin_password           = random_password.password.bcrypt_hash
   # app provisioning
-  web_image = "erjosito/yadaweb:1.0"
+  web_image      = "erjosito/yadaweb:1.0"
   api_private_ip = module.load_balancer.mid_tier_lb.private_ip_address
 }
 
@@ -125,10 +125,10 @@ module "biz_scale_sets" {
   admin_user              = var.admin_user
   admin_password          = random_password.password.bcrypt_hash
   # app provisioning
-  api_image = "erjosito/yadaapi:1.0"
-  SQL_SERVER_FQDN = module.db_SQLSERVER.sqlserver-fqdn
-  SQL_SERVER_USERNAME = var.admin_user 
-  SQL_SERVER_PASSWORD = random_password.password.bcrypt_hash
+  api_image           = "erjosito/yadaapi:1.0"
+  SQL_SERVER_FQDN     = module.db_SQLSERVER.sqlserver-fqdn
+  SQL_SERVER_USERNAME = var.sqladmin
+  SQL_SERVER_PASSWORD = random_password.dbpassword.result
 
 
 }
@@ -146,11 +146,12 @@ module "biz_scale_sets" {
 #   ip_range_filter         = "0.0.0.0"
 # }
 module "db_SQLSERVER" {
-  source                  = "./modules/SQLSERVER"
-  location                = var.resource_group_location
-  resource_group_name     = azurerm_resource_group.rg.name
-  servername                    = random_pet.name.id
-  dbname = "mydb"
-  adminlogin ="dbadmin"
-  adminpwd = random_password.dbpassword.bcrypt_hash
+  source              = "./modules/SQLSERVER"
+  location            = var.resource_group_location
+  resource_group_name = azurerm_resource_group.rg.name
+  servername          = random_pet.name.id
+  dbname              = var.dbname
+  adminlogin          = var.sqladmin
+  adminpwd            = random_password.dbpassword.result
+  apisubnetid         = module.networks.api-subnet
 }

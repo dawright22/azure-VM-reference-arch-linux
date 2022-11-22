@@ -3,7 +3,7 @@ output "sqlserver-id" {
 }
 
 output "sqlserver-fqdn" {
-value = azurerm_mssql_server.sqlserver.fully_qualified_domain_name
+  value = azurerm_mssql_server.sqlserver.fully_qualified_domain_name
 }
 
 # output "cosmos-db-id" {

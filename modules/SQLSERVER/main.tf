@@ -8,24 +8,27 @@ resource "azurerm_mssql_server" "sqlserver" {
 }
 
 resource "azurerm_mssql_database" "sqldb" {
-  name           = "${var.dbname}"
-  server_id      = azurerm_mssql_server.sqlserver.id
-  collation      = "SQL_Latin1_General_CP1_CI_AS"
-  license_type   = "LicenseIncluded"
-  sku_name       = "S0"
+  name         = var.dbname
+  server_id    = azurerm_mssql_server.sqlserver.id
+  collation    = "SQL_Latin1_General_CP1_CI_AS"
+  license_type = "LicenseIncluded"
+  sku_name     = "S0"
 
   //max_size_gb    = 4
   // read_scale     = true
 
   // zone_redundant = true
 
-lifecycle {
-  ignore_changes = [
-      license_type                  
-  ]  
+  lifecycle {
+    ignore_changes = [
+      license_type
+    ]
+  }
+
 }
 
-
+resource "azurerm_mssql_virtual_network_rule" "sqldb-serviceendpoint" {
+  name      = "sqldb-vnet-rule"
+  server_id = azurerm_mssql_server.sqlserver.id
+  subnet_id = var.apisubnetid
 }
-
-

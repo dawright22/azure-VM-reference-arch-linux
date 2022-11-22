@@ -19,6 +19,12 @@ output "subnet4" {
   value = azurerm_subnet.biz_tier_sub.id
 }
 
+
+
+output "api-subnet" {
+  value = azurerm_subnet.biz_tier_sub.id
+}
+
 output "subnet5" {
   value = azurerm_subnet.data_tier_sub.id
 }
@@ -47,10 +53,10 @@ output "app-gtw-ip" {
   value = azurerm_public_ip.app-gateway.id
 }
 
-output "private_dns_zone" {
-  value = azurerm_private_dns_zone.default.id
-}
+# output "private_dns_zone" {
+#   value = azurerm_private_dns_zone.default.id
+# }
 
-output "private_dns_zone_link" {
-  value = azurerm_private_dns_zone_virtual_network_link.default
-}
+# output "private_dns_zone_link" {
+#   value = azurerm_private_dns_zone_virtual_network_link.default
+# }

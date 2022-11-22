@@ -59,3 +59,14 @@ variable "throughput" {
   type    = number
   default = 400
 }
+
+variable "sqladmin" {
+  description = "Name of SQL Admin user"
+  default     = "dbadmin"
+}
+
+variable "dbname" {
+  description = "Name of SQL Server db"
+  default     = "mydb"
+
+}

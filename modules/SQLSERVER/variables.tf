@@ -13,7 +13,7 @@ variable "servername" {
 
 variable "dbname" {
   description = "Name of database to create"
-  default = "mydb"
+  default     = "mydb"
 }
 
 variable "adminlogin" {
@@ -21,5 +21,9 @@ variable "adminlogin" {
 }
 
 variable "adminpwd" {
+}
+
+variable "apisubnetid" {
+  description = "id of api subnet.  used to configure service endpoint"
 
 }

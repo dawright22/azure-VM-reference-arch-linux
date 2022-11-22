@@ -7,6 +7,11 @@ output "password" {
   value     = random_password.password.bcrypt_hash
 }
 
+output "dbpassword" {
+  sensitive = true
+  value     = random_password.dbpassword.result
+}
+
 output "subnet1_id" {
   value = module.networks.subnet1
 }

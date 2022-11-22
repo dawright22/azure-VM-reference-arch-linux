@@ -17,6 +17,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "biz_scale_set" {
     sql_password    = "${var.SQL_SERVER_PASSWORD}",
   api_image = "${var.api_image}" }))
 
+  boot_diagnostics {
+    storage_account_uri = ""
+  }
+
   source_image_reference {
     # publisher = "Canonical"
     # offer     = "UbuntuServer"
@@ -58,9 +62,9 @@ resource "azurerm_linux_virtual_machine_scale_set" "biz_scale_set" {
     ignore_changes = [instances]
   }
 
-depends_on = [
-   azurerm_marketplace_agreement.flatcar
-]
+  depends_on = [
+    azurerm_marketplace_agreement.flatcar
+  ]
 
 }
 

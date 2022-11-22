@@ -7,7 +7,7 @@ resource "azurerm_public_ip" "app-gateway" {
   resource_group_name = var.resource_group_name
   allocation_method   = "Static"
   sku                 = "Standard"
-
+  domain_name_label   = "${var.name}-demo"
 }
 
 ######################################
@@ -172,6 +172,7 @@ resource "azurerm_subnet" "biz_tier_sub" {
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vm-ref-arch.name
   address_prefixes     = ["10.0.4.0/24"]
+  service_endpoints    = ["Microsoft.Sql"]
 
 }
 
@@ -207,19 +208,19 @@ resource "azurerm_subnet_network_security_group_association" "SGA4" {
 ######################################
 # Create Private DNS
 ######################################
-# Enables you to manage Private DNS zones within Azure DNS
-resource "azurerm_private_dns_zone" "default" {
-  name                = "${var.name}.mysql.database.azure.com"
-  resource_group_name = var.resource_group_name
-}
+# # Enables you to manage Private DNS zones within Azure DNS
+# resource "azurerm_private_dns_zone" "default" {
+#   name                = "${var.name}.mysql.database.azure.com"
+#   resource_group_name = var.resource_group_name
+# }
 
-# Enables you to manage Private DNS zone Virtual Network Links
-resource "azurerm_private_dns_zone_virtual_network_link" "default" {
-  name                  = "mysqlfsVnetZone${var.name}.com"
-  private_dns_zone_name = azurerm_private_dns_zone.default.name
-  resource_group_name   = var.resource_group_name
-  virtual_network_id    = azurerm_virtual_network.vm-ref-arch.id
-}
+# # Enables you to manage Private DNS zone Virtual Network Links
+# resource "azurerm_private_dns_zone_virtual_network_link" "default" {
+#   name                  = "mysqlfsVnetZone${var.name}.com"
+#   private_dns_zone_name = azurerm_private_dns_zone.default.name
+#   resource_group_name   = var.resource_group_name
+#   virtual_network_id    = azurerm_virtual_network.vm-ref-arch.id
+# }
 
 ######################################
 # Create Vnet peering 
@@ -247,4 +248,30 @@ resource "azurerm_virtual_network_peering" "peering2" {
 
   # `allow_gateway_transit` must be set to false for vnet Global Peering
   allow_gateway_transit = false
+}
+
+
+###### Create NAT Gateway
+resource "azurerm_nat_gateway" "natgw" {
+  name                = "${var.name}-natgw"
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
+}
+
+resource "azurerm_subnet_nat_gateway_association" "natgw-subnet" {
+  subnet_id      = azurerm_subnet.biz_tier_sub.id
+  nat_gateway_id = azurerm_nat_gateway.natgw.id
+}
+
+resource "azurerm_nat_gateway_public_ip_association" "natgw-pipassoc" {
+  nat_gateway_id       = azurerm_nat_gateway.natgw.id
+  public_ip_address_id = azurerm_public_ip.natgw-pip.id
+}
+
+resource "azurerm_public_ip" "natgw-pip" {
+  name                = "${var.name}-natgw-pip"
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
+  allocation_method   = "Static"
+  sku                 = "Standard"
 }
