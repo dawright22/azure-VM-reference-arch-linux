@@ -22,7 +22,8 @@ resource "azurerm_cosmosdb_account" "Storacc" {
     max_staleness_prefix    = 100000
   }
   depends_on = [
-    var.resource_group_name
+    var.resource_group_name,
+    var.data_tier_sub_id
   ]
 }
 
