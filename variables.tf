@@ -15,35 +15,35 @@ variable "resource_group_name_prefix" {
   description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
 }
 
-variable "app_gtw_sub" {
-  description = "Name of the app gateway subnet"
-  default     = ""
-}
+# variable "app_gtw_sub" {
+#   description = "Name of the app gateway subnet"
+#   default     = ""
+# }
 
-variable "app_gtw_ip" {
-  description = "Name of the app gateway ip"
-  default     = ""
-}
+# variable "app_gtw_ip" {
+#   description = "Name of the app gateway ip"
+#   default     = ""
+# }
 
-variable "scale_set_sub" {
-  description = "Name of the scale set subnet"
-  default     = ""
-}
+# variable "scale_set_sub" {
+#   description = "Name of the scale set subnet"
+#   default     = ""
+# }
 
-variable "lb_sub" {
-  default     = ""
-  description = "Name of the Lb subnet"
-}
+# variable "lb_sub" {
+#   default     = ""
+#   description = "Name of the Lb subnet"
+# }
 
-variable "bastion_public_ip" {
-  default     = ""
-  description = "bastion public ip"
-}
+# variable "bastion_public_ip" {
+#   default     = ""
+#   description = "bastion public ip"
+# }
 
-variable "bastion_subnet_id" {
-  default     = ""
-  description = "bastion subnet id"
-}
+# variable "bastion_subnet_id" {
+#   default     = ""
+#   description = "bastion subnet id"
+# }
 
 variable "admin_user" {
   description = "User name to use as the admin account on the VMs that will be part of the VM scale set"
@@ -55,10 +55,10 @@ variable "admin_password" {
   default     = ""
 }
 
-variable "throughput" {
-  type    = number
-  default = 400
-}
+# variable "throughput" {
+#   type    = number
+#   default = 400
+# }
 
 variable "sqladmin" {
   description = "Name of SQL Admin user"
