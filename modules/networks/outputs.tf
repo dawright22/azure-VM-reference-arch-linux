@@ -53,6 +53,10 @@ output "app-gtw-ip" {
   value = azurerm_public_ip.app-gateway.id
 }
 
+output "app-gtw-domainname" {
+  value = azurerm_public_ip.app-gateway.domain_name_label
+}
+
 # output "private_dns_zone" {
 #   value = azurerm_private_dns_zone.default.id
 # }

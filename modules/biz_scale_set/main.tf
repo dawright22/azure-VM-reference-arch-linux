@@ -6,7 +6,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "biz_scale_set" {
   name                            = "${var.name}-biz-vmss"
   resource_group_name             = var.resource_group_name
   location                        = var.resource_group_location
-  sku                             = "Standard_B2s"
+  sku                             = "Standard_D2a_v4"
   instances                       = 3
   admin_username                  = var.admin_user
   admin_password                  = var.admin_password
